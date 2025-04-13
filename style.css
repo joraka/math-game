@@ -47,13 +47,17 @@ button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background-color: #dbefff;
   border-color: #77aadd;
 }
 
-button:active {
+button:active:not(:disabled) {
   transform: scale(0.96);
+}
+
+#numberButtons button:disabled {
+  background-color: rgb(212, 212, 212);
 }
 
 #message {
