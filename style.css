@@ -42,9 +42,12 @@ button {
   background-color: #ffffff;
   border: 2px solid #ccc;
   border-radius: 10px;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:not(:disabled) {
+  cursor: pointer;
 }
 
 button:hover:not(:disabled) {
@@ -56,7 +59,7 @@ button:active:not(:disabled) {
   transform: scale(0.96);
 }
 
-#numberButtons button:disabled {
+#numberButtons button:disabled, #submitBtn:disabled {
   background-color: rgb(212, 212, 212);
 }
 

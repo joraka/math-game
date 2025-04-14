@@ -9,7 +9,8 @@ const messageEl = document.getElementById("message");
 
 let currentNums = "";
 let currentExpressionArray = [];
-let result = 0;
+let evaluatedResult = 0;
+let targetNum = undefined;
 const disabledNumbers = [];
 
 function calculateResult() {
@@ -19,21 +20,20 @@ function calculateResult() {
 
   //calculate result
   if (currentNums.length > 0) {
-    let result = 0;
-    currentExpressionArray.forEach((v, i) => {
-      if (typeof v === "string" && i < currentExpressionArray.length - 1) {
-        console.log(currentExpressionArray[i - 1], currentExpressionArray[i + 1], i);
-        if (v === "*") {
-          result += currentExpressionArray[i - 1] * currentExpressionArray[i + 1];
-        } else if (v === "-") {
-          result += currentExpressionArray[i - 1] - currentExpressionArray[i + 1];
-        } else if (v === "+") {
-          result += currentExpressionArray[i - 1] + currentExpressionArray[i + 1];
-        }
-      }
-    });
-    currentValueResultEl.innerText = result;
-    console.log({ result });
+    evaluatedResult = eval(currentExpressionArray.join(" ") + Number(currentNums));
+    currentValueResultEl.innerText = evaluatedResult;
+  }
+
+  submitBtn.disabled = currentExpressionArray.length === 0 || currentNums.length === 0;
+}
+
+function submitResult() {
+  if (targetNum === evaluatedResult) {
+    alert("corrent");
+    restartGame();
+  } else {
+    alert("not correct");
+    restartGame();
   }
 }
 
@@ -61,9 +61,24 @@ for (const btn of operatorsButtonsEl.children) {
   });
 }
 
-function startGame() {
-  const targetNum = Math.floor(Math.random() * 101);
+//submit button clicked
+submitBtn.addEventListener("click", (event) => {
+  submitResult();
+});
+
+//game restart logic
+function restartGame() {
+  targetNum = Math.floor(Math.random() * 101);
   targetEl.innerText = targetNum;
+
+  //clear disabled buttons
+  disabledNumbers.forEach((btn) => (btn.disabled = false));
+  disabledNumbers.length = 0;
+
+  currentValueResultEl.innerText = "";
+  expressionEl.innerText = "";
+  currentNums = "";
+  currentExpressionArray.length = 0;
 }
 
-startGame();
+restartGame();
