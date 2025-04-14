@@ -59,7 +59,7 @@ button:active:not(:disabled) {
   transform: scale(0.96);
 }
 
-#numberButtons button:disabled, #submitBtn:disabled {
+#numberButtons button:disabled, #submitBtn:disabled, .operators button:disabled {
   background-color: rgb(212, 212, 212);
 }
 
@@ -79,6 +79,6 @@ button:active:not(:disabled) {
   border-color: #f4cd7c;
 }
 
-.operators button:hover {
+.operators button:not(:disabled):hover {
   background-color: #fff3d1;
 }
